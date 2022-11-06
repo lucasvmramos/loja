@@ -5,9 +5,10 @@ import br.com.luquinhas.loja.model.Produto
 import org.springframework.stereotype.Component
 
 @Component
-class ProdutoViewMapper:Mapper<Produto,ProdutoView> {
+class ProdutoViewMapper : Mapper<Produto, ProdutoView> {
     override fun map(t: Produto): ProdutoView {
         return ProdutoView(
+            id = t.id,
             dataCriacao = t.dataCadastro,
             nome = t.nome,
             valor = t.valor
