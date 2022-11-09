@@ -9,6 +9,7 @@ import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping("/categoria")
+@CrossOrigin(origins = ["http://localhost:4200","https://lucasvmramos.github.io"])
 class CategoriaController(private val categoriaService: CategoriaService) {
 
     @PostMapping("/cadastrar")
@@ -28,7 +29,7 @@ class CategoriaController(private val categoriaService: CategoriaService) {
 
     @GetMapping("/{id}")
     fun buscarPorID(@PathVariable id:Long):Categoria{
-        return this.categoriaService.buscarCategoriaPorID(id);
+        return this.categoriaService.buscarCategoriaPorID(id)
     }
 
     @DeleteMapping("/{id}")

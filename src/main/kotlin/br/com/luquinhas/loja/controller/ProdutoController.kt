@@ -10,6 +10,7 @@ import org.springframework.web.util.UriComponentsBuilder
 
 @RestController
 @RequestMapping("/produto")
+@CrossOrigin(origins = ["http://localhost:4200","https://lucasvmramos.github.io"])
 class ProdutoController(
     private val service: ProdutoService,
 ) {
