@@ -28,9 +28,12 @@ class ProdutoService(
         return viewMapper.map(produto)
     }
 
-    fun buscarTodos(): List<ProdutoView> {
-        var produtos = repository
-            .findAll()
+    fun buscarTodos(nomeCategoria:String?): List<ProdutoView> {
+        var produtos = if (nomeCategoria.isNullOrEmpty()){
+            repository.findAll()
+        }else{
+            repository.findByCategoriaNome(nomeCategoria)
+        }
         return produtos.map { p -> viewMapper.map(p) }
     }
 

@@ -7,15 +7,17 @@ import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import org.springframework.web.util.UriComponentsBuilder
+import javax.validation.Valid
 
 @RestController
 @RequestMapping("/produto")
-@CrossOrigin(origins = ["http://localhost:4200","https://lucasvmramos.github.io"])
+@CrossOrigin(origins = ["http://localhost:4200", "https://lucasvmramos.github.io"])
 class ProdutoController(
     private val service: ProdutoService,
 ) {
     @PostMapping("/cadastrar")
     fun cadastrarProduto(
+        @Valid
         @RequestBody form: ProdutoForm,
         uriBuilder: UriComponentsBuilder,
     ): ResponseEntity<ProdutoView> {
@@ -31,13 +33,15 @@ class ProdutoController(
     }
 
     @GetMapping
-    fun buscarTodosProdutos():List<ProdutoView>{
-        return service.buscarTodos()
+    fun buscarTodosProdutos(
+        @RequestParam(required = false) nomeCategoria: String?,
+    ): List<ProdutoView> {
+        return service.buscarTodos(nomeCategoria)
     }
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    fun deletar(@PathVariable id: Long){
+    fun deletar(@PathVariable id: Long) {
         service.removerProduto(id)
     }
 }
