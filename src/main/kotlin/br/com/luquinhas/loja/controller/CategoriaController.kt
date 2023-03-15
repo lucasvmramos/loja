@@ -2,6 +2,8 @@ package br.com.luquinhas.loja.controller
 
 import br.com.luquinhas.loja.model.Categoria
 import br.com.luquinhas.loja.service.CategoriaService
+import org.springframework.cache.annotation.CacheEvict
+import org.springframework.cache.annotation.Cacheable
 import org.springframework.http.HttpStatus
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -13,6 +15,7 @@ import org.springframework.web.util.UriComponentsBuilder
 class CategoriaController(private val categoriaService: CategoriaService) {
 
     @PostMapping("/cadastrar")
+    @CacheEvict(value = ["categorias"])
     fun cadastrarCategoria(
         @RequestBody categoria: Categoria,
         uriBuilder: UriComponentsBuilder,
@@ -23,6 +26,7 @@ class CategoriaController(private val categoriaService: CategoriaService) {
     }
 
     @GetMapping
+    @Cacheable("categorias")
     fun buscarCategorias(): List<Categoria> {
         return this.categoriaService.buscarCategorias()
     }
@@ -34,6 +38,7 @@ class CategoriaController(private val categoriaService: CategoriaService) {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
+    @CacheEvict(value = ["categorias"])
     fun deletarCategoria(@PathVariable id:Long){
         this.categoriaService.deletarCategoria(id)
     }

@@ -9,10 +9,10 @@ class Produto(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     val id: Long? = null,
-    val nome: String,
-    val descricao: String,
+    var nome: String,
+    var descricao: String,
     val dataCadastro: LocalDateTime? = LocalDateTime.now(),
-    val valor: BigDecimal,
+    var valor: BigDecimal,
     @ManyToOne
     val categoria: Categoria,
 ) {

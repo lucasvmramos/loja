@@ -1,11 +1,14 @@
 package br.com.luquinhas.loja.service
 
+import br.com.luquinhas.loja.dto.AtualizarProdutoForm
 import br.com.luquinhas.loja.dto.ProdutoForm
 import br.com.luquinhas.loja.dto.ProdutoView
 import br.com.luquinhas.loja.exception.NotFoundException
 import br.com.luquinhas.loja.mapper.ProdutoFormMapper
 import br.com.luquinhas.loja.mapper.ProdutoViewMapper
 import br.com.luquinhas.loja.repository.ProdutoRepository
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.stereotype.Service
 
 @Service
@@ -28,11 +31,11 @@ class ProdutoService(
         return viewMapper.map(produto)
     }
 
-    fun buscarTodos(nomeCategoria:String?): List<ProdutoView> {
+    fun buscarTodos(nomeCategoria: String?, paginacao: Pageable): Page<ProdutoView> {
         var produtos = if (nomeCategoria.isNullOrEmpty()){
-            repository.findAll()
+            repository.findAll(paginacao)
         }else{
-            repository.findByCategoriaNome(nomeCategoria)
+            repository.findByCategoriaNome(nomeCategoria,paginacao)
         }
         return produtos.map { p -> viewMapper.map(p) }
     }
@@ -40,5 +43,15 @@ class ProdutoService(
     fun removerProduto(id: Long){
         repository.deleteById(id)
     }
+
+    fun atualizar(form: AtualizarProdutoForm): ProdutoView {
+        val produto=repository.findById(form.id)
+            .orElseThrow { NotFoundException("Produto nao encotrado") }
+        produto.nome=form.nome
+        produto.valor=form.valor
+        repository.save(produto)
+        return viewMapper.map(produto)
+    }
+
 
 }
