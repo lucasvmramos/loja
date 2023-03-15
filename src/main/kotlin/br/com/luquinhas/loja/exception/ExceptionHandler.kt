@@ -21,4 +21,18 @@ class ExceptionHandler {
             mensagem = exception.message,
             path = request.servletPath)
     }
+
+    @ExceptionHandler(Exception::class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    fun handleException(
+        exception: Exception,
+        request: HttpServletRequest
+    ):ErrorView{
+        return ErrorView(
+            error = HttpStatus.INTERNAL_SERVER_ERROR.name,
+            status = HttpStatus.INTERNAL_SERVER_ERROR.value(),
+            mensagem = exception.message,
+            path = request.servletPath
+        )
+    }
 }

@@ -3,9 +3,8 @@ package br.com.luquinhas.loja.dto
 import java.math.BigDecimal
 import java.time.LocalDateTime
 
-data class ProdutoView(
+class AtualizarProdutoForm(
     val id: Long,
-    val dataCriacao: LocalDateTime,
     val nome: String,
-    val valor: BigDecimal
+    val valor: BigDecimal,
 )
