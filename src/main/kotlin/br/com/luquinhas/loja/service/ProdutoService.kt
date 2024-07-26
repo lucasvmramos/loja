@@ -19,7 +19,7 @@ class ProdutoService(
 ) {
 
     fun cadastrarProduto(produtoForm: ProdutoForm): ProdutoView {
-        val produto = formMapper.map(produtoForm);
+        val produto = formMapper.map(produtoForm)
         repository.save(produto)
         return viewMapper.map(produto)
     }
@@ -32,7 +32,7 @@ class ProdutoService(
     }
 
     fun buscarTodos(nomeCategoria: String?, paginacao: Pageable): Page<ProdutoView> {
-        var produtos = if (nomeCategoria.isNullOrEmpty()){
+        val produtos = if (nomeCategoria.isNullOrEmpty()){
             repository.findAll(paginacao)
         }else{
             repository.findByCategoriaNome(nomeCategoria,paginacao)
