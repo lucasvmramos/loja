@@ -27,7 +27,7 @@ class ProdutoService(
     fun buscarPorID(id: Long): ProdutoView {
         val produto = repository
             .findById(id)
-            .orElseThrow { NotFoundException("Produto nao encotrado") }
+            .orElseThrow { NotFoundException("Produto nao encontrado") }
         return viewMapper.map(produto)
     }
 

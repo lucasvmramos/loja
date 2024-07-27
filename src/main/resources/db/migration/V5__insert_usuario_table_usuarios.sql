@@ -1,0 +1,1 @@
+insert into usuario (nome,email,senha) select 'lucas' , 'lucas@email.com' , '$2a$12$Efo3WN/v0nLYZvpThvc79.EZLvc6ID8VSeqjn0hSe4MHom/p5lKnG'
