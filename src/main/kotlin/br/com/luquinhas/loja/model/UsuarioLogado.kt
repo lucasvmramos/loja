@@ -1,6 +1,5 @@
 package br.com.luquinhas.loja.model
 
-import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 
 class UsuarioLogado(private val data: Usuario) : UserDetails {
@@ -15,6 +14,6 @@ class UsuarioLogado(private val data: Usuario) : UserDetails {
     override fun isCredentialsNonExpired() = true
 
     override fun isEnabled() = true
-    override fun getAuthorities() = null
+    override fun getAuthorities() = data.rules
 
 }
