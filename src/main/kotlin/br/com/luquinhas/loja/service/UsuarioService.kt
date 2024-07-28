@@ -1,19 +1,16 @@
 package br.com.luquinhas.loja.service
 
-import br.com.luquinhas.loja.dto.ProdutoForm
-import br.com.luquinhas.loja.dto.ProdutoView
 import br.com.luquinhas.loja.dto.UsuarioForm
 import br.com.luquinhas.loja.dto.UsuarioView
 import br.com.luquinhas.loja.mapper.UsuarioFormMapper
 import br.com.luquinhas.loja.mapper.UsuarioViewMapper
 import br.com.luquinhas.loja.model.UsuarioLogado
 import br.com.luquinhas.loja.repository.UsuarioRepository
-import org.springframework.http.ResponseEntity
-import org.springframework.security.core.userdetails.User
+import org.springframework.data.domain.Page
+import org.springframework.data.domain.Pageable
 import org.springframework.security.core.userdetails.UserDetails
 import org.springframework.security.core.userdetails.UserDetailsService
 import org.springframework.stereotype.Service
-import java.lang.RuntimeException
 
 @Service
 class UsuarioService(
@@ -29,5 +26,10 @@ class UsuarioService(
     override fun loadUserByUsername(email: String?): UserDetails {
         val data = repository.findByEmail(email) ?: throw RuntimeException()
         return UsuarioLogado(data)
+    }
+
+    fun busca(paginacao: Pageable): Page<UsuarioView> {
+        val usuarios = repository.findAll(paginacao)
+        return usuarios.map { user -> mapperView.map(user) }
     }
 }
