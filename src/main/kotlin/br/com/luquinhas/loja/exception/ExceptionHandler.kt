@@ -22,6 +22,20 @@ class ExceptionHandler {
             path = request.servletPath)
     }
 
+    @ExceptionHandler(UsuarioJaExisteException::class)
+    @ResponseStatus(HttpStatus.CONFLICT)
+    fun handleUsuarioJaExiste(
+        exception: UsuarioJaExisteException,
+        request: HttpServletRequest
+    ):ErrorView{
+        return ErrorView(
+            error = HttpStatus.CONFLICT.name,
+            status = HttpStatus.CONFLICT.value(),
+            mensagem = exception.message,
+            path = request.servletPath
+        )
+    }
+
     @ExceptionHandler(Exception::class)
     @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
     fun handleException(

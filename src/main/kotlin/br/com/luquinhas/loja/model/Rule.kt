@@ -8,10 +8,9 @@ import javax.persistence.Id
 
 @Entity
 data class Rule (
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Id @GeneratedValue(strategy = GenerationType.IDENTITY)
     private val id:Long,
     private val nome:String
-):GrantedAuthority {
-    override fun getAuthority()=nome
+):GrantedAuthority{
+    override fun getAuthority() = nome
 }
