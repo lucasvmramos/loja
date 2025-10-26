@@ -1,1 +1,0 @@
-select * from usuario_rule;

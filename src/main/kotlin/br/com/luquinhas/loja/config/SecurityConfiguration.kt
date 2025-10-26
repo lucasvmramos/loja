@@ -28,8 +28,7 @@ class SecurityConfiguration(
                  it.antMatchers(HttpMethod.POST,"/login").permitAll()
                      .antMatchers(HttpMethod.POST,"/usuario/cadastrar").permitAll()
                      .antMatchers(HttpMethod.POST,"/categoria").hasAuthority("READ_WRITE")
-                     .anyRequest()
-                     .authenticated()
+                     .anyRequest().authenticated()
              }
              .addFilterBefore(JWTLoginFilter(authManager = configuration.authenticationManager,jwtUtil = jwtUtil), UsernamePasswordAuthenticationFilter().javaClass)
              .addFilterBefore(JWTAutheticationFilter(jwtUtil=jwtUtil), UsernamePasswordAuthenticationFilter().javaClass)
